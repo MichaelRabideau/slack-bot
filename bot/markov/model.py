@@ -14,7 +14,7 @@ def get_model():
 # TODO: load from db
 class Model:
     def __init__(self, text):
-        self.text_model = markovify.Text(text)
+        self.text_model = markovify.Text(text).compile()
 
     def generate_response(self):
         return self.text_model.make_short_sentence(50)
