@@ -5,6 +5,7 @@ PATH = os.path.dirname(os.path.realpath(__file__))
 
 BOT_ID = os.environ.get('SLACK_BOT_ID', 'U3BMAJT2A')
 SLACK_TOKEN = os.environ.get('SLACK_CHOBOI_API_TOKEN')
+PORT = int(os.environ.get('PORT', 5000))
 
 MARKOV_ENABLED = os.environ.get('SLACK_CHOBOI_MARKOV_ENABLED', True)
 if MARKOV_ENABLED in ("False", "false", 0):
@@ -14,7 +15,8 @@ MARKOV_TRAIN_FREQUENCY = 600
 
 THREAD_DELAY = 0.1
 
-DATABASE_URL = os.environ.get('DATABASE_URL', 'postgres://choboi:choboi@localhost:55432/choboi?sslmode=disable')
+DATABASE_URL = os.environ.get(
+    'DATABASE_URL', 'postgres://choboi:choboi@localhost:55432/choboi?sslmode=disable')
 
 LOGGING = {
     'version': 1,
@@ -28,7 +30,7 @@ LOGGING = {
         },
     },
     'handlers': {
-        'console':{
+        'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
