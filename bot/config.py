@@ -5,7 +5,6 @@ PATH = os.path.dirname(os.path.realpath(__file__))
 
 BOT_ID = os.environ.get('SLACK_BOT_ID', 'U3BMAJT2A')
 SLACK_TOKEN = os.environ.get('SLACK_CHOBOI_API_TOKEN')
-DEFAULT_CHANNEL = os.environ.get('SLACK_DEFAUL_CHANNEL', '#general')
 
 MARKOV_ENABLED = os.environ.get('SLACK_CHOBOI_MARKOV_ENABLED', True)
 if MARKOV_ENABLED in ("False", "false", 0):

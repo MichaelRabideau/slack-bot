@@ -10,6 +10,7 @@ from bot.listener import SlackListener
 from bot.responder import SlackResponder
 from bot.handler import Handler
 from bot.scheduler import Scheduler
+from bot.markov.middleware import MarkovifyMiddleware
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +50,9 @@ class Bot:
             self.db = sqlalchemy.create_engine(config.DATABASE_URL)
 
     def __register_middlewares(self):
-        self.middlewares = []
+        self.middlewares = [
+            MarkovifyMiddleware(self.bot_id),
+        ]
 
     def run(self):
         self.__connect_db()

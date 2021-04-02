@@ -29,9 +29,22 @@ class Handler:
                 time.sleep(self.delay)
                 input_event = self.input_queue.get()
                 if input_event:
+                    # request middleware
                     for middleware in self.middlewares:
-                        middleware.process_input(input_event)
+                        if hasattr(middleware, 'process_input'):
+                            ie = middleware.process_input(input_event)
+                            if ie:
+                                input_event = ie
+                    # resolve
                     output_event = self.__resolve(input_event)
+
+                    # output middleware (reverse order)
+                    for middleware in self.middlewares[::-1]:
+                        if hasattr(middleware, 'process_output'):
+                            oe = middleware.process_output(input_event, output_event)
+                            if oe:
+                                output_event = oe
+
                     self.__respond(output_event)
             except Exception as ex:
                 logger.error("error: %s", ex)
@@ -49,11 +62,6 @@ class Handler:
         cmd = resolve(input_event.message, at=self.bot_id, handle_default=True)
         logger.info("resolved action: %s", cmd)
         if not cmd:
-            if input_event.default_output_message:
-                return OutputEvent(
-                    channel=input_event.channel,
-                    message='',
-                )
             return None
 
         message = cmd.action(
