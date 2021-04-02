@@ -1,8 +1,8 @@
 VERSION=$(shell git describe --tags 2> /dev/null || echo '0.0.0')
 PYTHON=./venv/bin/python3
 ALEMBIC=./venv/bin/alembic
-PID=choboi.pid
-APP_NAME=choboi
+PID=bot.pid
+APP_NAME=bot
 DOCKER_REPO=davidharrigan
 LOCAL_DATABASE_URL=postgres://choboi:choboi@localhost:55432/choboi?sslmode=disable
 
@@ -21,7 +21,7 @@ release:
 	alembic upgrade head
 
 lint:
-	pylint --rcfile=.pylintrc ./choboi
+	pylint --rcfile=.pylintrc ./bot
 
 test:
 	# pytest

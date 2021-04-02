@@ -6,10 +6,10 @@ import logging
 
 import requests
 
-from choboi.resolver import register_command
-from choboi.bot.config import SLACK_TOKEN
-from choboi.votes.models import Vote
-from choboi.db.transaction import begin_tx
+from bot.resolver import register_command
+from bot.config import SLACK_TOKEN
+from bot.votes.models import Vote
+from bot.db.transaction import begin_tx
 
 logger = logging.getLogger(__name__)
 

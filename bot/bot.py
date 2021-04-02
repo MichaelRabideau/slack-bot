@@ -5,11 +5,11 @@ import queue
 import sqlalchemy
 from slackclient import SlackClient
 
-from choboi.bot import config
-from choboi.bot.listener import SlackListener
-from choboi.bot.responder import SlackResponder
-from choboi.bot.handler import Handler
-from choboi.bot.scheduler import Scheduler
+from bot import config
+from bot.listener import SlackListener
+from bot.responder import SlackResponder
+from bot.handler import Handler
+from bot.scheduler import Scheduler
 
 logger = logging.getLogger(__name__)
 

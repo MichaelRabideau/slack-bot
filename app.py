@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from choboi.bot.bot import Bot
+from bot.bot import Bot
 
 
 def main():

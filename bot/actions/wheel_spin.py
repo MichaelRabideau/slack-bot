@@ -4,9 +4,9 @@ import random
 
 import schedule
 
-from choboi.bot.scheduler import add_schedule
-from choboi.db.transaction import begin_tx
-from choboi.votes.models import Vote
+from bot.scheduler import add_schedule
+from bot.db.transaction import begin_tx
+from bot.votes.models import Vote
 
 img_url = 'https://imgur.com/frdKT6E'
 

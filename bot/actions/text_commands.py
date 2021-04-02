@@ -4,8 +4,8 @@ This file contains raw text -> text interactions
 """
 import random
 
-from choboi.resolver import text_response
-from choboi.resolver import register_command
+from bot.resolver import text_response
+from bot.resolver import register_command
 
 
 @register_command('^soo*$')

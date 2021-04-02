@@ -1,10 +1,9 @@
 import logging
 import time
 
-from .event import OutputEvent
-from ..resolver import resolve
-
-from .. import actions # pylint: disable=unused-import
+from bot import actions # pylint: disable=unused-import
+from bot.event import OutputEvent
+from bot.resolver import resolve
 
 logger = logging.getLogger(__name__)
 

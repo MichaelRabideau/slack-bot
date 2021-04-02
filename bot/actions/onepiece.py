@@ -5,8 +5,8 @@ from sqlalchemy import Column, String, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import text
 
-from choboi.bot.scheduler import add_schedule
-from choboi.db.transaction import begin_tx
+from bot.scheduler import add_schedule
+from bot.db.transaction import begin_tx
 
 Base = declarative_base()
 
