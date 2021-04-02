@@ -11,6 +11,7 @@ from bot.responder import SlackResponder
 from bot.handler import Handler
 from bot.scheduler import Scheduler
 from bot.markov.middleware import MarkovifyMiddleware
+from bot.owo.middleware import OwoMiddleware
 
 logger = logging.getLogger(__name__)
 
@@ -51,6 +52,7 @@ class Bot:
 
     def __register_middlewares(self):
         self.middlewares = [
+            OwoMiddleware(),
             MarkovifyMiddleware(self.bot_id),
         ]
 
