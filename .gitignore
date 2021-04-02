@@ -94,5 +94,4 @@ logs/*
 !logs/.gitkeep
 
 choboi.pid
-*.json
 !app.json
