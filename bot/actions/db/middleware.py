@@ -8,12 +8,11 @@ logger = logging.getLogger(__name__)
 
 
 def strip_bot_mention(message, bot_id):
-    at = bot_id.lower()
+    at = bot_id.upper()
     mentioned = False
-    message = message.lower()
     if at in message:
         mentioned = True
-        message = message.replace(at, '').strip()
+        message = message.replace(f'<@{at}>', '').strip()
     return message, mentioned
 
 
