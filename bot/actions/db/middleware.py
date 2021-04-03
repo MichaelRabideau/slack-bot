@@ -38,7 +38,7 @@ class DBActionMiddleware:
         logger.info(message)
         logger.info(mentioned)
 
-        if result.mention and not mentioned:
+        if not result or result.mention and not mentioned:
             return None
 
         return OutputEvent(
