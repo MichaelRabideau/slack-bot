@@ -21,7 +21,7 @@ class DBActionMiddleware:
         self.conn = conn
         self.bot_id = bot_id
 
-    def process_response(self, input_event: MessageEvent, output_event: OutputEvent):
+    def process_output(self, input_event: MessageEvent, output_event: OutputEvent):
         if output_event:
             return None
 
@@ -29,17 +29,14 @@ class DBActionMiddleware:
             input_event.message, self.bot_id)
 
         session = sessionmaker(bind=self.conn)()
-        result = session.query(Action).where(Action.c.command ==
-                                             message).scalar()
+        result = session.query(Action).filter(
+            Action.command == message).scalar()
         session.commit()
 
-        logger.info("!!!!!!!")
-        logger.info(result)
-        logger.info(message)
-        logger.info(mentioned)
-
-        if result.mention and not mentioned:
+        if not result or result.mention and not mentioned:
             return None
+
+        logger.info('responding with saved action')
 
         return OutputEvent(
             message=result.response,
