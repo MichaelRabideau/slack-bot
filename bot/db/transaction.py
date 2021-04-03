@@ -7,7 +7,6 @@ def begin_tx(func):
     # TODO: replace *args, *kwargs with a context obj
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        print('hello')
         tx = None
         conn = kwargs.get('conn')
         if conn:
