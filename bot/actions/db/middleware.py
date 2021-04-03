@@ -21,7 +21,7 @@ class DBActionMiddleware:
         self.conn = conn
         self.bot_id = bot_id
 
-    def process_response(self, input_event: MessageEvent, output_event: OutputEvent):
+    def process_output(self, input_event: MessageEvent, output_event: OutputEvent):
         if output_event:
             return None
 
