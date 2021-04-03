@@ -12,6 +12,7 @@ from bot.handler import Handler
 from bot.scheduler import Scheduler
 from bot.markov.middleware import MarkovifyMiddleware
 from bot.owo.middleware import OwoMiddleware
+from bot.actions.db.middleware import DBActionMiddleware
 
 logger = logging.getLogger(__name__)
 
@@ -54,6 +55,7 @@ class Bot:
         self.middlewares = [
             OwoMiddleware(),
             MarkovifyMiddleware(self.bot_id),
+            DBActionMiddleware(self.db, self.bot_id),
         ]
 
     def run(self):
@@ -61,16 +63,20 @@ class Bot:
         self.__connect_slack()
         self.__register_middlewares()
 
-        listener = SlackListener(self.input_queue, self.delay, self.client, self.bot_id)
+        listener = SlackListener(
+            self.input_queue, self.delay, self.client, self.bot_id)
         self.threads.append(threading.Thread(target=listener.run))
 
-        responder = SlackResponder(self.output_queue, self.delay, self.client, self.bot_id)
+        responder = SlackResponder(
+            self.output_queue, self.delay, self.client, self.bot_id)
         self.threads.append(threading.Thread(target=responder.run))
 
-        scheduler = Scheduler(self.output_queue, self.delay, self.client, self.db)
+        scheduler = Scheduler(
+            self.output_queue, self.delay, self.client, self.db)
         self.threads.append(threading.Thread(target=scheduler.run))
 
-        handler = Handler(self.input_queue, self.output_queue, self.bot_id, self.delay, self.db, self.middlewares)
+        handler = Handler(self.input_queue, self.output_queue,
+                          self.bot_id, self.delay, self.db, self.middlewares)
         self.threads.append(threading.Thread(target=handler.run))
 
         for t in self.threads:
