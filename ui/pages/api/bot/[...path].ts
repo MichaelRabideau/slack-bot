@@ -11,6 +11,7 @@ const API_SERVER = process.env.API_SERVER;
 export default withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<any>) => {
     const { path } = req.query;
+    delete req.query.path;
     try {
       const user = await getAccessToken(req, res);
 
@@ -33,6 +34,7 @@ export default withApiAuthRequired(
           authorization: `Bearer ${user.accessToken}`,
         },
         data: req.body,
+        params: req.query,
       });
       res.status(response.status).json(response.data);
     } catch (err) {

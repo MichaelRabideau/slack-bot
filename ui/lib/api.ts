@@ -5,6 +5,21 @@ const listSystemActions = async () => {
   return res.data;
 };
 
+interface ListActionsParam {
+  page?: number;
+  pageSize?: number;
+}
+
+const listActions = async (param: ListActionsParam) => {
+  const res = await axios.get("/api/bot/actions", {
+    params: {
+      page: param.page ?? 1,
+      page_size: param.pageSize ?? 25,
+    },
+  });
+  return res.data;
+};
+
 interface CreateActionData {
   command: string;
   response: string;
@@ -23,6 +38,7 @@ const listSchedules = async () => {
 
 export default {
   listSystemActions,
+  listActions,
   createAction,
   listSchedules,
 };
