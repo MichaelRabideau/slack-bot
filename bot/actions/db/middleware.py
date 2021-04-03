@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 def strip_bot_mention(message, bot_id):
     at = bot_id.lower()
     mentioned = False
+    message = message.lower()
     if at in message:
         mentioned = True
         message = message.replace(at, '').strip()
@@ -32,6 +33,9 @@ class DBActionMiddleware:
         result = session.query(Action).filter(
             Action.command == message).scalar()
         session.commit()
+
+        logger.info('message: %s, mentioned: %s', message, mentioned)
+        logger.info('result: %s', result)
 
         if not result:
             return None

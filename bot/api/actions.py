@@ -42,7 +42,7 @@ class Actions(Resource):
         data = request.data
         try:
             a = model.Action(
-                command=data['command'],
+                command=data['command'].lower(),
                 response=data['response'],
                 mention=data['mention'],
             )
