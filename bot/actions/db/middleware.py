@@ -29,8 +29,8 @@ class DBActionMiddleware:
             input_event.message, self.bot_id)
 
         session = sessionmaker(bind=self.conn)()
-        result = session.query(Action).where(Action.c.command ==
-                                             message).scalar()
+        result = session.query(Action).filter(
+            Action.command == message).scalar()
         session.commit()
 
         logger.info("!!!!!!!")
