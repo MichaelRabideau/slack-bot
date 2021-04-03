@@ -29,6 +29,11 @@ class DBActionMiddleware:
         result = session.query(Action).where(Action.c.command ==
                                              message).scalar()
         session.commit()
+
+        print(result)
+        print(message)
+        print(mentioned)
+
         if result.mention and not mentioned:
             return None
 
