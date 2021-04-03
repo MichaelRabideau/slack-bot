@@ -33,13 +33,10 @@ class DBActionMiddleware:
             Action.command == message).scalar()
         session.commit()
 
-        logger.info("!!!!!!!")
-        logger.info(result)
-        logger.info(message)
-        logger.info(mentioned)
-
         if not result or result.mention and not mentioned:
             return None
+
+        logger.info('responding with saved action')
 
         return OutputEvent(
             message=result.response,
