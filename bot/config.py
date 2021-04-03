@@ -21,6 +21,9 @@ DATABASE_URL = os.environ.get(
 JWKS_URL = 'https://mitb.us.auth0.com/.well-known/jwks.json'
 JWT_AUDIENCE = os.environ.get('SLACK_BOT_API_JWT_AUDIENCE')
 ALLOWED_TEAM = os.environ.get('SLACK_BOT_API_ALLOWED_TEAM')
+API_URL = 'https://mitb-ayaya.herokuapp.com'
+if os.environ.get('HEROKU_APP_NAME'):
+    API_URL = f'https://{os.environ.get("HEROKU_APP_NAME")}.ui.herokuapp.com'
 
 LOGGING = {
     'version': 1,

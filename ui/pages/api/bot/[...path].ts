@@ -12,7 +12,7 @@ export default withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<any>) => {
     const { path } = req.query;
     try {
-      const user = getSession(req, res);
+      const user = await getAccessToken(req, res);
 
       let method: Method;
       if (req.method.toLowerCase() === "get") {
@@ -32,6 +32,7 @@ export default withApiAuthRequired(
         headers: {
           authorization: `Bearer ${user.accessToken}`,
         },
+        data: req.body,
       });
       res.status(response.status).json(response.data);
     } catch (err) {
