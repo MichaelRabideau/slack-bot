@@ -58,10 +58,13 @@ class Actions(Resource):
 
     @jwt.authorize
     def get(self, user):
+        page = int(request.args.get('page', 1))
+        page_size = int(request.args.get('page_size', 25))
         session = sessionmaker(bind=get_conn())()
-        page = paginate(session.query(model.Action), 1, 24)
+        page = paginate(session.query(model.Action), page, page_size)
         items = [{'command': x.command, 'response': x.response,
                   'mention': x.mention} for x in page.items]
+        session.commit()
         return {
             'total': page.total,
             'pages': page.pages,

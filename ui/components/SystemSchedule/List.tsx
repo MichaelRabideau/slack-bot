@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Card,
-  Icon,
-  Table,
-  Loader,
-  Segment,
-  Dimmer,
-} from "semantic-ui-react";
+import { Card, Table, Loader, Segment, Dimmer } from "semantic-ui-react";
 
 interface ListProps {
   schedules: Array<any>;
@@ -18,7 +10,7 @@ const List: React.FC<ListProps> = ({ schedules }) => {
     <>
       <Card fluid>
         <Card.Content>
-          <Card.Header>Schedules</Card.Header>
+          <Card.Header>System Schedules</Card.Header>
         </Card.Content>
         <Card.Content>
           {(!schedules || schedules.length === 0) && (
@@ -48,22 +40,6 @@ const List: React.FC<ListProps> = ({ schedules }) => {
                   );
                 })}
               </Table.Body>
-              <Table.Footer fullWidth>
-                <Table.Row>
-                  <Table.HeaderCell />
-                  <Table.HeaderCell colSpan="4">
-                    <Button
-                      floated="right"
-                      icon
-                      labelPosition="left"
-                      primary
-                      size="small"
-                    >
-                      <Icon name="plus" /> Add Schedule
-                    </Button>
-                  </Table.HeaderCell>
-                </Table.Row>
-              </Table.Footer>
             </Table>
           )}
         </Card.Content>
