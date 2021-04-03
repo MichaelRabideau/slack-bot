@@ -1,7 +1,10 @@
+import logging
 from sqlalchemy.orm import sessionmaker
 
 from bot.event import MessageEvent, OutputEvent
 from .model import Action
+
+logger = logging.getLogger(__name__)
 
 
 def strip_bot_mention(message, bot_id):
@@ -30,9 +33,10 @@ class DBActionMiddleware:
                                              message).scalar()
         session.commit()
 
-        print(result)
-        print(message)
-        print(mentioned)
+        logger.info("!!!!!!!")
+        logger.info(result)
+        logger.info(message)
+        logger.info(mentioned)
 
         if result.mention and not mentioned:
             return None
