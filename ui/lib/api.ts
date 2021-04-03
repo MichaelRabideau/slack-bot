@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const listActions = async () => {
-  const res = await axios.get("/api/bot/actions");
+const listSystemActions = async () => {
+  const res = await axios.get("/api/bot/system/actions");
   return res.data;
 };
 
@@ -22,7 +22,7 @@ const listSchedules = async () => {
 };
 
 export default {
-  listActions,
+  listSystemActions,
   createAction,
   listSchedules,
 };

@@ -16,7 +16,7 @@ const List: React.FC = () => {
   const [actions, setActions] = React.useState<Array<any>>([]);
 
   React.useEffect(() => {
-    api.listActions().then((data) => {
+    api.listSystemActions().then((data) => {
       setActions(data.data);
     });
   }, []);

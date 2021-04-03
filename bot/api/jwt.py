@@ -32,6 +32,8 @@ def authorize(f):
     @functools.wraps(f)
     def decorated_function(*args, **kwargs):
         hdr = flask.request.headers.get('authorization')
+        if not hdr:
+            return {'message': 'Not authenticated'}, 401
         part = hdr.split(' ')
         decoded = {}
         if len(part) != 2 or part[0] != 'Bearer':
