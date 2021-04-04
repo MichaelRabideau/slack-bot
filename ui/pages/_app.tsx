@@ -28,7 +28,9 @@ export default function App({ Component, pageProps }) {
           </Dropdown>
           <Dropdown item simple text="Schedules">
             <Dropdown.Menu>
-              <Dropdown.Item>System</Dropdown.Item>
+              <Dropdown.Item as="a" href="/system/schedules">
+                System
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <Menu.Menu position="right">
