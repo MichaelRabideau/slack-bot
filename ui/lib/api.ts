@@ -20,10 +20,19 @@ const listActions = async (param: ListActionsParam) => {
   return res.data;
 };
 
-interface CreateActionData {
+export interface Reply {
+  reply: string;
+}
+
+export interface Command {
   command: string;
-  response: string;
   mention: boolean;
+  exact: boolean;
+}
+
+interface CreateActionData {
+  commands: Command[];
+  replies: Reply[];
 }
 
 const createAction = async (data: CreateActionData) => {

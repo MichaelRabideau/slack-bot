@@ -5,7 +5,6 @@ import {
   Icon,
   Table,
   Loader,
-  Segment,
   Dimmer,
   Pagination,
 } from "semantic-ui-react";
@@ -16,21 +15,20 @@ const List: React.FC = () => {
   const [openCreateModal, setOpenCreateModal] = React.useState(false);
   const [actions, setActions] = React.useState<Array<any>>([]);
   const [page, setPage] = React.useState(1);
-  const [pageSize, setPageSize] = React.useState(10);
   const [totalItems, setTotalItems] = React.useState(0);
   const [totalPages, setTotalPages] = React.useState(0);
-  const [hasNext, setHasNext] = React.useState(false);
-  const [hasPrevious, setHasPrevious] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const pageSize = 10;
 
   React.useEffect(() => {
+    if (openCreateModal) {
+      return;
+    }
     setLoading(true);
     api.listActions({ page, pageSize }).then((data) => {
       setActions(data.items);
       setTotalItems(data.total);
       setTotalPages(data.pages);
-      setHasNext(data.has_next);
-      setHasPrevious(data.has_previous);
       setLoading(false);
     });
   }, [page, pageSize, openCreateModal]);
@@ -50,9 +48,9 @@ const List: React.FC = () => {
           <Table>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Command</Table.HeaderCell>
-                <Table.HeaderCell>Requires Mention</Table.HeaderCell>
-                <Table.HeaderCell>Response</Table.HeaderCell>
+                <Table.HeaderCell>Commands</Table.HeaderCell>
+                <Table.HeaderCell>Replies</Table.HeaderCell>
+                <Table.HeaderCell>Last Edited By</Table.HeaderCell>
                 <Table.HeaderCell>Edit</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -60,15 +58,29 @@ const List: React.FC = () => {
               {actions.map((data, idx) => {
                 return (
                   <Table.Row key={idx}>
-                    <Table.Cell>{data.command}</Table.Cell>
-                    <Table.Cell>
-                      {data.mention ? (
-                        <Icon name="check" color="green" />
-                      ) : (
-                        <Icon name="ban" color="red" />
-                      )}
+                    <Table.Cell verticalAlign="top">
+                      {data.commands.map((cmd, cidx) => {
+                        {
+                          return (
+                            <p style={{ color: cidx !== 0 ? "grey" : "black" }}>
+                              {cmd.command}
+                            </p>
+                          );
+                        }
+                      })}
                     </Table.Cell>
-                    <Table.Cell>{data.response}</Table.Cell>
+                    <Table.Cell verticalAlign="top">
+                      {data.replies.map((reply, ridx) => {
+                        {
+                          return (
+                            <p style={{ color: ridx !== 0 ? "grey" : "black" }}>
+                              {reply.reply}
+                            </p>
+                          );
+                        }
+                      })}
+                    </Table.Cell>
+                    <Table.Cell>{data.edited_by}</Table.Cell>
                     <Table.Cell>
                       <Icon name="edit" />
                     </Table.Cell>
