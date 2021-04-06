@@ -12,6 +12,10 @@ from bot.resolver import register_command
 def sososo(*args, **kwargs):
     return "so" * random.randint(3, 16)
 
+@register_command('(gib.+)')
+def gib(*args, **kwargs):
+    return "༼ つ ◕_◕ ༽つ" + args[0] + "༼ つ ◕_◕ ༽つ"
+
 herro = text_response(
     '.*her+o.*',
     "parese"
