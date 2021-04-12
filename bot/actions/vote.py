@@ -5,6 +5,7 @@ handles user++ user-- scores
 import logging
 
 import requests
+import random
 
 from bot.resolver import register_command
 from bot.config import SLACK_TOKEN
@@ -36,7 +37,11 @@ def vote_up(*args, **kwargs):
 
     vote = Vote.up(actor, to)
     tx.add(vote)
-    return "one bluecoin for my homie"
+    return "one bluecoin for " + person()
+
+def person():
+    options = [ "oni-chan", "my little pog champ", "my senpai", "my homie", "you uwu" ]
+    return random.choice(options)
 
 
 @register_command(r'\<\@(?P<uid>.+)\>\s*\-\-')
